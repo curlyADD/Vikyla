@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>З днем рождения, Вікуля💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#e84d7a;
+  --pink2:#ff6b9d;
+  --purple:#c044b8;
+  --gold:#d4a017;
+  --goldlight:#f0c040;
+  --text-dark:#5a1040;
+  --text-mid:#a03070;
+  --text-soft:#c080b0;
+  --bg1:#fff0f8;
+  --bg2:#fdf0ff;
+}
+html,body{min-height:100%;width:100%}
+body{
+  font-family:'Nunito',sans-serif;
+  background:linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 50%,#fff8f0 100%);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ══ FLOATING HEARTS & CLOUDS ══ */
+#floaters{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.floater{position:absolute;animation:floatUp linear infinite;user-select:none}
+@keyframes floatUp{
+  0%{transform:translateY(110vh) rotate(-10deg) scale(.7);opacity:0}
+  8%{opacity:1}
+  92%{opacity:.9}
+  100%{transform:translateY(-15vh) rotate(15deg) scale(1.1);opacity:0}
+}
+.cloud-shape{
+  position:absolute;
+  background:rgba(255,255,255,.55);
+  border-radius:50px;
+  animation:cloudDrift linear infinite;
+  filter:blur(1px);
+}
+.cloud-shape::before,.cloud-shape::after{
+  content:'';position:absolute;
+  background:rgba(255,255,255,.55);
+  border-radius:50%;
+}
+@keyframes cloudDrift{
+  0%{transform:translateX(-120px);opacity:0}
+  10%{opacity:.7}
+  90%{opacity:.7}
+  100%{transform:translateX(110vw);opacity:0}
+}
+
+/* ══ SCREENS ══ */
+.screen{display:none;min-height:100vh;align-items:center;justify-content:center;padding:32px 16px;position:relative;z-index:2;flex-direction:column}
+.screen.active{display:flex}
+
+/* ══ CARD ══ */
+.card{
+  background:rgba(255,255,255,.92);
+  border:1.5px solid rgba(220,130,200,.3);
+  border-radius:28px;
+  padding:40px 36px;
+  max-width:520px;width:100%;
+  text-align:center;
+  box-shadow:0 16px 80px rgba(180,60,140,.15),0 2px 12px rgba(180,60,140,.08);
+  backdrop-filter:blur(16px);
+  position:relative;
+  overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,210,235,.18) 0%,rgba(240,192,255,.1) 100%);
+  pointer-events:none;
+}
+@media(max-width:480px){.card{padding:28px 18px}}
+
+/* ══ TYPOGRAPHY ══ */
+.serif{font-family:'Playfair Display',serif}
+h1.big{font-family:'Playfair Display',serif;font-size:44px;color:var(--pink);line-height:1.15;margin-bottom:10px}
+@media(max-width:480px){h1.big{font-size:30px}}
+.sub{font-size:15px;color:var(--text-mid);font-weight:600;margin-bottom:24px;letter-spacing:.3px}
+.riddle{font-family:'Playfair Display',serif;font-size:21px;color:var(--text-dark);line-height:1.6;margin-bottom:16px}
+.note{font-size:13px;color:var(--text-soft);margin-bottom:16px;font-style:italic}
+
+/* ══ BADGE ══ */
+.badge{
+  display:inline-block;
+  background:linear-gradient(135deg,#ffd6ec,#f0c0ff);
+  color:#a02080;font-size:11px;font-weight:900;
+  padding:5px 18px;border-radius:20px;
+  margin-bottom:20px;letter-spacing:1.4px;text-transform:uppercase;
+}
+
+/* ══ BUTTONS ══ */
+.btn{
+  background:linear-gradient(135deg,var(--pink),var(--purple));
+  color:#fff;border:none;
+  padding:14px 38px;border-radius:50px;
+  font-size:15px;font-family:'Nunito',sans-serif;font-weight:800;
+  cursor:pointer;letter-spacing:.3px;
+  box-shadow:0 6px 30px rgba(200,60,150,.35);
+  transition:transform .15s,box-shadow .15s;
+  position:relative;overflow:hidden;
+}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .2s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(200,60,150,.5)}
+.btn:hover::after{background:rgba(255,255,255,.08)}
+.btn:active{transform:scale(.97)}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--goldlight));color:#4a2800;box-shadow:0 6px 30px rgba(212,160,23,.45)}
+
+/* ══ INPUT ══ */
+input[type=text],input[type=password]{
+  width:100%;padding:14px 20px;
+  border:2px solid rgba(200,100,180,.25);
+  border-radius:16px;
+  font-size:15px;font-family:'Nunito',sans-serif;font-weight:600;
+  background:rgba(255,255,255,.97);
+  color:var(--text-dark);
+  outline:none;margin-bottom:14px;text-align:center;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+}
+input:focus{border-color:var(--pink);box-shadow:0 0 0 4px rgba(232,77,122,.12);transform:scale(1.01)}
+
+/* ══ HINT ══ */
+.hint{font-size:13px;color:var(--text-soft);min-height:22px;margin-top:4px;font-weight:600}
+.hint.err{color:#d04060}
+.hint.ok{color:#20a060}
+
+/* ══ FUNNY REACTION ══ */
+.funny{
+  font-size:13px;min-height:28px;margin-top:6px;
+  color:#e84d7a;font-weight:700;
+  animation:popIn .35s cubic-bezier(.36,.07,.19,.97);
+}
+@keyframes popIn{0%{transform:scale(0) rotate(-5deg);opacity:0}60%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+
+/* ══ PROGRESS DOTS ══ */
+.dots{display:flex;gap:10px;margin-bottom:28px;justify-content:center}
+.dot{width:12px;height:12px;border-radius:50%;background:rgba(200,100,180,.2);transition:background .4s,transform .3s}
+.dot.done{background:linear-gradient(135deg,var(--pink),var(--purple));transform:scale(1.15)}
+
+/* ══ HEARTS ROW ══ */
+.hearts{font-size:32px;letter-spacing:8px;margin-bottom:18px;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+/* ══ FINAL ══ */
+.final-text{
+  font-family:'Playfair Display',serif;
+  font-size:16px;color:var(--text-dark);
+  line-height:1.95;margin-bottom:22px;
+  white-space:pre-wrap;min-height:80px;
+  text-align:left;
+}
+.typing-cur{border-right:2px solid var(--pink);animation:blink .7s steps(1) infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ══ LOVE METER ══ */
+.meter-wrap{margin:16px 0 22px}
+.meter-label{font-size:13px;color:var(--text-soft);margin-bottom:8px;font-weight:700}
+.meter-bar{height:16px;background:rgba(200,100,180,.12);border-radius:10px;overflow:hidden;border:1px solid rgba(200,100,180,.2)}
+.meter-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--pink),#f8a0d0,#ff6bcc,var(--purple));width:0;transition:width 2s cubic-bezier(.22,.61,.36,1)}
+.meter-pct{font-size:14px;color:var(--pink);font-weight:900;margin-top:8px;animation:pulse 1.5s ease infinite}
+
+/* ══ CONFETTI ══ */
+.conf{position:fixed;pointer-events:none;z-index:100;animation:cfall linear forwards}
+@keyframes cfall{0%{opacity:1;transform:translateY(-20px) rotate(0) scale(1)}100%{opacity:0;transform:translateY(105vh) rotate(900deg) scale(.5)}}
+
+/* ══ HEART BURST ══ */
+.hburst{position:fixed;pointer-events:none;z-index:99;font-size:22px;animation:hfly ease-out forwards}
+@keyframes hfly{0%{opacity:1;transform:translate(0,0) scale(.5)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.4)}}
+
+/* ══ GIFT REVEAL ══ */
+#giftReveal{margin-top:18px;font-size:14px;color:var(--text-mid);line-height:1.8;min-height:20px;font-weight:600}
+
+/* ══ SECRET BTN ══ */
+#secretBtn{position:fixed;bottom:20px;right:24px;font-size:20px;cursor:pointer;opacity:.2;transition:opacity .3s,transform .3s;z-index:50;background:none;border:none}
+#secretBtn:hover{opacity:.9;transform:rotate(20deg) scale(1.2)}
+
+/* ══ RIDDLE EMOJI ══ */
+.riddle-emoji{font-size:42px;margin-bottom:12px;display:block;animation:wiggle 2s ease infinite}
+@keyframes wiggle{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+/* ══ STREAK ══ */
+.streak{
+  background:linear-gradient(135deg,#fff5dc,#fff0f8);
+  border:1.5px solid rgba(212,160,23,.3);
+  border-radius:16px;padding:12px 18px;
+  margin-bottom:18px;font-size:13px;color:#a06020;font-weight:700;
+}
+
+/* ══ GALLERY ══ */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin:20px 0}
+.photo-slot{
+  aspect-ratio:1;border-radius:16px;
+  background:linear-gradient(135deg,#ffd6ec,#f0c0ff);
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+  overflow:hidden;
+}
+.photo-slot:hover{transform:scale(1.07) rotate(-1deg);box-shadow:0 8px 24px rgba(200,60,150,.25)}
+
+/* ══ FACTS BOX ══ */
+.fact-box{
+  background:linear-gradient(135deg,rgba(255,214,236,.4),rgba(240,192,255,.3));
+  border:1.5px dashed rgba(200,100,180,.3);
+  border-radius:16px;padding:14px 18px;margin:14px 0;
+  font-size:13.5px;color:var(--text-dark);line-height:1.7;text-align:left;font-weight:600;
+}
+
+/* ══ FADE IN ══ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:fadeUp .5s ease both}
+
+/* ══ STAR RATING ══ */
+.star-row{font-size:28px;letter-spacing:4px;margin:10px 0;cursor:default;user-select:none}
+
+/* ══ BADGE UNLOCK ══ */
+.badge-unlock{
+  display:none;
+  background:linear-gradient(135deg,#fffbe0,#ffd6ec);
+  border:2px solid var(--gold);
+  border-radius:16px;padding:12px 20px;
+  margin:12px 0;font-size:13px;color:#8a4000;font-weight:700;
+  animation:popIn .4s ease;
+}
+.badge-unlock.show{display:block}
+
+/* ══ SCROLL INDICATOR ══ */
+.scroll-hint{font-size:12px;color:var(--text-soft);margin-top:20px;animation:bounce 2s ease infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+</style>
+</head>
+<body>
+
+<div id="floaters"></div>
+<button id="secretBtn" onclick="go('secret')" title="Секрет">🌟</button>
+
+<!-- ═══ SCREEN 0: START ═══ -->
+<div class="screen active" id="s0">
+  <div class="card fade-in">
+    <div class="hearts">💖🌸💖</div>
+    <h1 class="big">З днем рождения,<br>Викуля</h1>
+    <p class="sub">✨ Тут як завжди все нет так просто  ✨</p>
+    <div class="fact-box">
+      🎂 Сьогодні тобі виповнюється 18 років!<br>
+      🌍 Це означає: 6570 днів, 157 680 годин<br>
+     
+    </div>
+    <p style="font-size:14px;color:var(--text-soft);margin-bottom:28px;line-height:1.8;font-weight:600">
+      5 загаднок — 5 спогадів.<br>
+      Не вгадаєш не пройдешей далі
+    </p>
+    <button class="btn" onclick="go(1)">Начать приключение 🚀</button>
+    <p class="scroll-hint">↓ Листай вниз если нужно ↓</p>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 1: PASSWORD ═══ -->
+<div class="screen" id="s1">
+  <div class="card fade-in">
+    <div class="badge">🔐 Спробуєш,</div>
+    <span class="riddle-emoji">🤫</span>
+    <p class="riddle">То скільки ж вам років тьотя Віка<br>
+   </p>
+    <p class="note"></p>
+    <input type="password" id="pwInput" placeholder="••••••••"
+      onkeydown="if(event.key==='Enter')checkPw()"/>
+    <button class="btn" onclick="checkPw()">Войти 🔓</button>
+    <p class="hint" id="pwHint"></p>
+    <p class="funny" id="pwFunny"></p>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 2: RIDDLE 1 ═══ -->
+<div class="screen" id="s2">
+  <div class="dots" id="dots2"></div>
+  <div class="card fade-in">
+    <div class="badge">Загадка 1 из 5</div>
+    <span class="riddle-emoji">🏫</span>
+    <p class="riddle">"Який мем я подхватив в твоєї мами і дуже довго про це шутив"</p>
+    <p class="note">відповідь одним словом 💭</p>
+    <input type="text" id="r1Input" placeholder="Твой ответ..."
+      onkeydown="if(event.key==='Enter')checkR(1)"/>
+    <button class="btn" onclick="checkR(1)">Проверить ✓</button>
+    <p class="hint" id="r1Hint"></p>
+    <p class="funny" id="r1Funny"></p>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 3: RIDDLE 2 ═══ -->
+<div class="screen" id="s3">
+  <div class="dots" id="dots3"></div>
+  <div class="card fade-in">
+    <div class="badge">Загадка 2 из 5</div>
+    <span class="riddle-emoji">📅</span>
+    <p class="riddle">"Відповідь це твій обюлений тост<br></p>
+    <p class="note"></p>
+    <input type="text" id="r2Input" placeholder="Твой ответ..."
+      onkeydown="if(event.key==='Enter')checkR(2)"/>
+    <button class="btn" onclick="checkR(2)">Проверить ✓</button>
+    <p class="hint" id="r2Hint"></p>
+    <p class="funny" id="r2Funny"></p>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 4: RIDDLE 3 ═══ -->
+<div class="screen" id="s4">
+  <div class="dots" id="dots4"></div>
+  <div class="card fade-in">
+    <div class="badge">Загадка 3 из 5</div>
+    <span class="riddle-emoji">💬</span>
+    <p class="riddle">"Де ми лазили і вночі<br>і зустрічали світанок"</p>
+    <p class="note">вайб місце</p>
+    <input type="text" id="r3Input" placeholder="Твой ответ..."
+      onkeydown="if(event.key==='Enter')checkR(3)"/>
+    <button class="btn" onclick="checkR(3)">Проверить ✓</button>
+    <p class="hint" id="r3Hint"></p>
+    <p class="funny" id="r3Funny"></p>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 5: RIDDLE 4 ═══ -->
+<div class="screen" id="s5">
+  <div class="dots" id="dots5"></div>
+  <div class="card fade-in">
+    <div class="badge">Загадка 4 из 5</div>
+    <span class="riddle-emoji">🍕</span>
+    <p class="riddle">Що ти казала коли починала ображатися на вулиці<br>і починала кудись йти"</p>
+    <p class="note">Вкусный вопрос 😋</p>
+    <input type="text" id="r4Input" placeholder="Твой ответ..."
+      onkeydown="if(event.key==='Enter')checkR(4)"/>
+    <button class="btn" onclick="checkR(4)">Проверить ✓</button>
+    <p class="hint" id="r4Hint"></p>
+    <p class="funny" id="r4Funny"></p>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 6: RIDDLE 5 ═══ -->
+<div class="screen" id="s6">
+  <div class="dots" id="dots6"></div>
+  <div class="card fade-in">
+    <div class="badge">Загадка 5 из 5 🔥</div>
+    <span class="riddle-emoji">🌟</span>
+    <p class="riddle">"Як в недавно почав тебе називати але називаю так не часто"</p>
+    <p class="note">Последний вопрос — самый важный 😉</p>
+    <div class="fact-box">💡</div>
+    <input type="text" id="r5Input" placeholder="Твой ответ..."
+      onkeydown="if(event.key==='Enter')checkR(5)"/>
+    <button class="btn" onclick="checkR(5)">Проверить ✓</button>
+    <p class="hint" id="r5Hint"></p>
+    <p class="funny" id="r5Funny"></p>
+  </div>
+</div>
+
+<!-- ═══ SCREEN 7: FINAL ═══ -->
+<div class="screen" id="s7">
+  <div class="card fade-in" style="max-width:560px">
+    <div class="hearts">🎉💖🎂✨🌸</div>
+    <h1 class="big" style="font-size:36px;margin-bottom:10px">Викуля, тобі 18! 🎊</h1>
+
+    <div class="badge-unlock show" id="allBadge">🏆 Все загадки розгадані! Ты — умнічка!</div>
+
+    <div class="final-text" id="finalTyping"></div>
+
+    <div class="star-row" id="starRow"></div>
+
+    <div class="meter-wrap">
+      <p class="meter-label"></p>
+      <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
+      <p class="meter-pct" id="meterPct">считаем...</p>
+    </div>
+
+    <div class="fact-box" id="funFact">
+      🌟 Интересный факт: в день твоего рождения мир стал чуточку лучше!
+    </div>
+
+    <div class="gallery" id="gallery">
+      <div class="photo-slot" onclick="photoClick(this,'💫')">💫</div>
+      <div class="photo-slot" onclick="photoClick(this,'🌸')">🌸</div>
+      <div class="photo-slot" onclick="photoClick(this,'✨')">✨</div>
+      <div class="photo-slot" onclick="photoClick(this,'🦋')">🦋</div>
+    </div>
+
+    <button class="btn gold" onclick="openGift()" style="margin-top:4px">🎁 Открыть подарок!</button>
+    <div id="giftReveal"></div>
+    <button class="btn" onclick="launchHearts()" style="margin-top:14px;background:linear-gradient(135deg,#ff6b9d,#ff9eb5)">💖 Ещё сердечек!</button>
+  </div>
+</div>
+
+<!-- ═══ SCREEN: SECRET ═══ -->
+<div class="screen" id="ssecret">
+  <div class="card fade-in">
+    <div class="hearts">🤫⭐🤫</div>
+    <h1 class="big" style="font-size:28px;margin-bottom:14px">Ты нашла секрет! 🕵️‍♀️</h1>
+    <p class="serif" style="font-size:16px;color:var(--text-dark);line-height:1.9;margin-bottom:12px">
+      Поздравляю — ты самая внимательная!<br>
+      Это значит, что ты особенная. 🌸
+    </p>
+    <div class="fact-box">
+      🎯 Секретный факт:<br>
+      Ты нашла эту страницу — значит,<br>
+      ты точно будешь счастлива в 18 лет! ✨
+    </div>
+    <div class="star-row">⭐⭐⭐⭐⭐</div>
+    <button class="btn" onclick="go(0)" style="margin-top:16px">Вернуться назад 🏠</button>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   ✏️  НАСТРОЙКИ — МЕНЯЙ ЗДЕСЬ
+══════════════════════════════════════════ */
+
+const ANSWERS = {
+  pw: "18",
+  r1: "растішка",
+  r2: "Щоб хуй стояв і серце билось",
+  r3: "Затока",
+  r4: "Я додому",           // ✏️ замени на своё
+  r5: "Барабулька"             // ✏️ замени на своё имя
+};
+
+const HINTS = {
+  pw:  "Подсказка для пароля",
+  r1:  "Подсказка 1",
+  r2:  "Подсказка 2",
+  r3:  "Подсказка 3",
+  r4:  "Подсказка 4",
+  r5:  "Подсказка 5"
+};
+
+// Смешные реакции на неправильный ответ (рандомные)
+const FUNNY_WRONG = [
+  "Неа 😂 Попробуй ещё!",
+  "Это точно не оно 🙈",
+  "Ха! Не угадала! 😄",
+  "Неправильно, но зачёт за попытку 👏",
+  "Эммм... нет 😅",
+  "Близко, но не то! 🙃",
+  "Покопайся в памяти глубже 🧠",
+  "Ой, мимо! 🎯❌",
+  "Ну нееет 😂💀",
+  "Подумай ещё раз, умница 💭"
+];
+
+// Реакции на правильный ответ
+const FUNNY_RIGHT = [
+  "🎉 Да!! Ты лучшая!",
+  "💖 Правильно! Умница!",
+  "✨ Вот это память!",
+  "🌟 Конечно! Я знал(а)!",
+  "💫 Бинго! Ты огонь!"
+];
+
+const FINAL_TEXT =
+`Ну шо Вікуля вітаю ось тобі вже 18 рочків ти звісно вікуля була і будешь ти там не бумай шо 18 і уже вікторія нее це так не працює
+Бажаю тобі дачі і удачі бо без неє ні куда що здоровя завжди було і не закінчувалося що б ти завжди посміхалася бо щасливим і сонце світить 
+Вікуля наспрадлі можна бажати до ранку але дяже тобі дякую що ти є і за все те що ти робила і робиш 
+в тебе ще все по переду скажемо там же по бачимо ми ейфелеву башню і ще покупаєся в океані так шо вікуля з днем нарождення тримай ніс пістолетом`;
+
+// ✏️ ЗАМЕНИ НА РЕАЛЬНЫЙ ПОДАРОК
+const GIFT_TEXT = "... а подарунок буде не знаю коли але буде";
+
+/* ══════════════════════════════════════════
+   КОД
+══════════════════════════════════════════ */
+
+let wrongCount = {};
+let typingTO = null;
+
+function norm(s){ return s.trim().toLowerCase().replace(/ё/g,'е').replace(/\s+/g,' ') }
+
+function buildDots(screenN, total=5){
+  const el = document.getElementById('dots'+screenN);
+  if(!el) return;
+  el.innerHTML='';
+  for(let i=0;i<total;i++){
+    const d=document.createElement('div');
+    d.className='dot'+(i<screenN-1?' done':'');
+    el.appendChild(d);
+  }
+}
+
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.remove('active');
+    s.querySelectorAll('input').forEach(i=>{ i.value=''; });
+    s.querySelectorAll('.hint,.funny').forEach(h=>{ h.textContent=''; h.className=h.classList.contains('funny')?'funny':'hint'; });
+  });
+  const el = (id==='secret') ? document.getElementById('ssecret') : document.getElementById('s'+id);
+  if(!el) return;
+  el.classList.remove('fade-in');
+  void el.offsetWidth;
+  el.classList.add('active','fade-in');
+  // Build dots
+  if(id>=2&&id<=6) buildDots(id);
+  if(id===7) startFinal();
+}
+
+function setFunny(id, text, cls=''){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.textContent='';
+  void el.offsetWidth;
+  el.textContent=text;
+  el.className='funny'+(cls?' '+cls:'');
+}
+
+function checkPw(){
+  const v=document.getElementById('pwInput').value;
+  const h=document.getElementById('pwHint');
+  if(norm(v)===norm(ANSWERS.pw)){
+    h.className='hint ok'; h.textContent='✓ Добро пожаловать!';
+    setFunny('pwFunny', FUNNY_RIGHT[Math.floor(Math.random()*FUNNY_RIGHT.length)]);
+    burstHearts(event);
+    setTimeout(()=>go(2),900);
+  } else {
+    wrongCount.pw=(wrongCount.pw||0)+1;
+    h.className='hint err'; h.textContent=wrongCount.pw>2?'🆘 Подсказка: '+HINTS.pw:'Не то...';
+    setFunny('pwFunny', FUNNY_WRONG[Math.floor(Math.random()*FUNNY_WRONG.length)]);
+    shake('pwInput');
+  }
+}
+
+function checkR(n){
+  const input=document.getElementById('r'+n+'Input');
+  const hint=document.getElementById('r'+n+'Hint');
+  const key='r'+n;
+  if(norm(input.value)===norm(ANSWERS[key])){
+    hint.className='hint ok'; hint.textContent='✓ Верно!';
+    setFunny(key+'Funny', FUNNY_RIGHT[Math.floor(Math.random()*FUNNY_RIGHT.length)]);
+    burstHearts(event);
+    const next=n===5?7:n+2;
+    setTimeout(()=>go(next),900);
+  } else {
+    wrongCount[key]=(wrongCount[key]||0)+1;
+    const cnt=wrongCount[key];
+    let hintText=FUNNY_WRONG[Math.floor(Math.random()*FUNNY_WRONG.length)];
+    if(cnt===2) hint.textContent='Попробуй ещё 🙈';
+    else if(cnt>=3) hint.textContent='Подсказка: '+HINTS[key];
+    else hint.textContent='Не совсем...';
+    setFunny(key+'Funny', hintText);
+    shake('r'+n+'Input');
+  }
+}
+
+function shake(id){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.style.borderColor='#e84d7a';
+  el.animate([
+    {transform:'translateX(0)'},{transform:'translateX(-8px)'},
+    {transform:'translateX(8px)'},{transform:'translateX(-5px)'},
+    {transform:'translateX(5px)'},{transform:'translateX(0)'}
+  ],{duration:350,easing:'ease-out'});
+  setTimeout(()=>{ el.style.borderColor=''; },900);
+}
+
+function burstHearts(e){
+  const x=e?.clientX||window.innerWidth/2;
+  const y=e?.clientY||window.innerHeight/2;
+  const emojis=['💖','💗','💕','🌸','✨','💫','💝','🩷'];
+  for(let i=0;i<10;i++){
+    const h=document.createElement('div');
+    h.className='hburst';
+    const angle=Math.random()*360;
+    const dist=60+Math.random()*100;
+    h.style.cssText=`left:${x}px;top:${y}px;--dx:${Math.cos(angle*Math.PI/180)*dist}px;--dy:${Math.sin(angle*Math.PI/180)*dist}px;animation-duration:${.7+Math.random()*.6}s;animation-delay:${Math.random()*.2}s`;
+    h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1600);
+  }
+}
+
+function launchHearts(){
+  for(let i=0;i<20;i++){
+    setTimeout(()=>{
+      const h=document.createElement('div');
+      h.className='hburst';
+      const x=Math.random()*window.innerWidth;
+      const y=window.innerHeight;
+      const angle=-90+(Math.random()-0.5)*60;
+      const dist=200+Math.random()*300;
+      h.style.cssText=`left:${x}px;top:${y}px;--dx:${Math.cos(angle*Math.PI/180)*dist}px;--dy:${Math.sin(angle*Math.PI/180)*dist}px;animation-duration:${1.2+Math.random()}s;font-size:${18+Math.random()*20}px`;
+      const emojis=['💖','💗','💕','🌸','✨','💫','💝'];
+      h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),2500);
+    },i*80);
+  }
+}
+
+function photoClick(el, emoji){
+  el.style.transform='scale(1.15) rotate(5deg)';
+  burstHearts({clientX:el.getBoundingClientRect().left+55,clientY:el.getBoundingClientRect().top+55});
+  setTimeout(()=>{ el.style.transform=''; },400);
+}
+
+let starAnimDone=false;
+function animateStars(){
+  if(starAnimDone) return;
+  starAnimDone=true;
+  const el=document.getElementById('starRow');
+  if(!el) return;
+  const stars=['⭐','⭐','⭐','⭐','⭐','💖'];
+  let i=0;
+  const iv=setInterval(()=>{
+    el.textContent+=stars[i++];
+    if(i>=stars.length) clearInterval(iv);
+  },200);
+}
+
+function startFinal(){
+  clearTimeout(typingTO);
+  const fill=document.getElementById('meterFill');
+  const pct=document.getElementById('meterPct');
+  const el=document.getElementById('finalTyping');
+  el.textContent='';
+  setTimeout(()=>{
+    if(fill) fill.style.width='100%';
+    if(pct){
+      let n=0;
+      const iv=setInterval(()=>{
+        n+=7;
+        if(n>=1000){pct.textContent='1000% 💖';clearInterval(iv);return;}
+        pct.textContent=n+'%';
+      },20);
+    }
+  },400);
+  typeText(el,FINAL_TEXT,0);
+  launchConfetti();
+  setTimeout(animateStars,2000);
+  setTimeout(launchHearts,1500);
+}
+
+function typeText(el,text,i){
+  if(i>text.length){ el.innerHTML=el.textContent.replace(/\n/g,'<br>'); return; }
+  el.textContent=text.substring(0,i);
+  el.innerHTML=el.innerHTML.replace(/\n/g,'<br>')+'<span class="typing-cur"> </span>';
+  typingTO=setTimeout(()=>typeText(el,text,i+1),26);
+}
+
+let giftOpened=false;
+function openGift(){
+  if(giftOpened) return;
+  giftOpened=true;
+  const el=document.getElementById('giftReveal');
+  el.textContent='';
+  let i=0;
+  const t=setInterval(()=>{
+    el.textContent+=GIFT_TEXT[i++];
+    if(i>=GIFT_TEXT.length) clearInterval(t);
+  },35);
+  launchConfetti();
+  launchHearts();
+}
+
+function launchConfetti(){
+  const cols=['#e84d7a','#f0c040','#c044b8','#ffd6ec','#b0e0ff','#a0ffb0','#ff6bcd','#ffa0c0'];
+  const shapes=['circle','square','heart'];
+  for(let i=0;i<100;i++){
+    const d=document.createElement('div');
+    d.className='conf';
+    const sz=5+Math.random()*10;
+    const shape=shapes[Math.floor(Math.random()*shapes.length)];
+    const br=shape==='circle'?'50%':shape==='square'?'3px':'50% 50% 0 50%';
+    d.style.cssText=`left:${Math.random()*100}vw;top:-15px;width:${sz}px;height:${sz}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${br};animation-duration:${1.8+Math.random()*2.6}s;animation-delay:${Math.random()*1.6}s;transform:rotate(${Math.random()*360}deg)`;
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),6000);
+  }
+}
+
+/* ══ FLOATING HEARTS & CLOUDS ══ */
+(function(){
+  const c=document.getElementById('floaters');
+  const heartEmojis=['💖','💗','💕','🌸','✨','💫','🩷','💝','☁️','🌤️'];
+
+  // Hearts
+  for(let i=0;i<22;i++){
+    const d=document.createElement('div');
+    d.className='floater';
+    const em=heartEmojis[i%heartEmojis.length];
+    const sz=12+Math.random()*20;
+    d.style.cssText=`left:${Math.random()*100}%;font-size:${sz}px;animation-duration:${9+Math.random()*14}s;animation-delay:${-Math.random()*16}s;opacity:.55`;
+    d.textContent=em;
+    c.appendChild(d);
+  }
+
+  // CSS clouds
+  for(let i=0;i<5;i++){
+    const cl=document.createElement('div');
+    cl.className='cloud-shape';
+    const w=80+Math.random()*120;
+    const h=w*0.42;
+    const top=10+Math.random()*70;
+    const dur=30+Math.random()*40;
+    cl.style.cssText=`width:${w}px;height:${h}px;top:${top}vh;animation-duration:${dur}s;animation-delay:${-Math.random()*dur}s;opacity:.6`;
+    cl.style.setProperty('border-radius','50px');
+    c.appendChild(cl);
+  }
+})();
+</script>
+</body>
+</html>
